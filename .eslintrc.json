@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "extends": ["react-app", "react-app/jest", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "settings": {
+    "react": {
+      "version": "^16.8.5"
+    }
+  },
+  "rules": {
+    "react-hooks/exhaustive-deps": 0,
+    "no-restricted-globals": "off",
+    "import/no-anonymous-default-export": "off",
+    "react/jsx-fragments": "off"
+  },
+  "overrides": []
+}
