@@ -21,10 +21,11 @@
 .pannel {
   border-radius: 6px;
   overflow: hidden;
+  height: calc((90vh - 10px)/ 2);
   width: calc((100vw - 30px - 10px)/2);
 }
 
-.firstPannel {
+.pannel1 {
   margin-right: 10px; 
   margin-bottom: 10px; 
   background-color: $firstPannelBgColor;
@@ -32,11 +33,9 @@
   .title {
     background-color: $firstPannelTitleBgColor;
   }
-
-
 }
 
-.secondPannel {
+.pannel2 {
  margin-bottom: 10px;
  background-color: $secondPannelBgColor;
 
@@ -45,7 +44,7 @@
   }
 }
 
-.thirdPannel {
+.pannel3 {
   margin-right: 10px; 
   background-color: $thirdPannelBgColor;
 
@@ -54,7 +53,7 @@
   }
 }
 
-.fourthPannel {
+.pannel4 {
   background-color: $fourthPannelBgColor;
 
   .title {
