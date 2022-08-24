@@ -5,8 +5,11 @@ export function HomePage() {
 
   function renderPannel() {
     return (
-      <div>
-        <div className="column">
+      <div className="pannelWraper">
+        <div
+          className="pannel"
+          style={{marginRight: marginValue, marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}
+        >
           <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
@@ -15,7 +18,7 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="column" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
+        <div className="pannel" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
           <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
@@ -24,7 +27,10 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="column" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
+        <div
+          className="pannel"
+          style={{marginRight: marginValue, marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}
+        >
           <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
@@ -33,7 +39,7 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="column" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
+        <div className="pannel" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
           <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
