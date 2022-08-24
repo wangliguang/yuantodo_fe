@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  width: 100vw;
+  height: 8vh;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
+}
+
+.header .logo {
+  font-family: "mfMiaoTao";
+  font-size: 30px;
+  color: black;
+}

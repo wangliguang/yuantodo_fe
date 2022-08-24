@@ -1,0 +1,32 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+  padding-left: 10px;
+  height: 4vh;
+  color: white;
+  font-size: 15px;
+}
+
+.imUrBgColor {
+  background-color: 'rgb(255,228,222)'
+}
+
+
+
