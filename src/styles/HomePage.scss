@@ -1,3 +1,5 @@
+@import './theme.scss';
+
 .main {
   display: flex;
   flex-direction: row;
@@ -20,6 +22,45 @@
   border-radius: 6px;
   overflow: hidden;
   width: calc((100vw - 30px - 10px)/2);
+}
+
+.firstPannel {
+  margin-right: 10px; 
+  margin-bottom: 10px; 
+  background-color: $firstPannelBgColor;
+
+  .title {
+    background-color: $firstPannelTitleBgColor;
+  }
+
+
+}
+
+.secondPannel {
+ margin-bottom: 10px;
+ background-color: $secondPannelBgColor;
+
+  .title {
+    background-color: $secondPannelTitleBgColor;
+  }
+}
+
+.thirdPannel {
+  margin-right: 10px; 
+  background-color: $thirdPannelBgColor;
+
+  .title {
+    background-color: $thirdPannelTitleBgColor;
+  }
+}
+
+.fourthPannel {
+  background-color: $fourthPannelBgColor;
+
+  .title {
+    background-color: $fourthPannelTitleBgColor
+  }
+
 }
 
 .title {

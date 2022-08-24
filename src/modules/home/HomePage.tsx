@@ -1,16 +1,11 @@
 import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 
 export function HomePage() {
-  const marginValue = '10px'
-
   function renderPannel() {
     return (
       <div className="pannelWraper">
-        <div
-          className="pannel"
-          style={{marginRight: marginValue, marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}
-        >
-          <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
+        <div className="pannel firstPannel">
+          <div className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
@@ -18,8 +13,8 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="pannel" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
-          <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
+        <div className="pannel secondPannel">
+          <div className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
@@ -27,11 +22,8 @@ export function HomePage() {
           </div>
         </div>
 
-        <div
-          className="pannel"
-          style={{marginRight: marginValue, marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}
-        >
-          <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
+        <div className="pannel thirdPannel">
+          <div className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
@@ -39,8 +31,8 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="pannel" style={{marginBottom: marginValue, backgroundColor: 'rgb(255,228,222)'}}>
-          <div style={{backgroundColor: 'rgb(248,121,110)'}} className="title">
+        <div className="pannel fourthPannel">
+          <div className="title">
             <p className="title_text">{`重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
