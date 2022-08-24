@@ -15,7 +15,7 @@ export function HomePage() {
 
         <div className="pannel secondPannel">
           <div className="title">
-            <p className="title_text">{`重要紧急 10`}</p>
+            <p className="title_text">{`重要不紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
             </button>
@@ -24,7 +24,7 @@ export function HomePage() {
 
         <div className="pannel thirdPannel">
           <div className="title">
-            <p className="title_text">{`重要紧急 10`}</p>
+            <p className="title_text">{`不重要紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
             </button>
@@ -33,7 +33,7 @@ export function HomePage() {
 
         <div className="pannel fourthPannel">
           <div className="title">
-            <p className="title_text">{`重要紧急 10`}</p>
+            <p className="title_text">{`不重要不紧急 10`}</p>
             <button className="addBtn" onClick={() => {}}>
               +
             </button>
