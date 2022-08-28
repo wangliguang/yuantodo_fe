@@ -1,5 +1,7 @@
 import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
+import {useEffect} from 'react'
+import {login} from '../../network'
 
 type Todo = {
   id: number
@@ -13,6 +15,14 @@ const TODOLIST_test1 = [
 ]
 
 export function HomePage() {
+  useEffect(() => {
+    try {
+      login('13121529304', 'wangliguang')
+    } catch (error) {
+      debugger
+    }
+  }, [])
+
   function onDragEnd({source, destination}: DropResult) {
     console.log('onDragEnd', source, destination)
   }
@@ -49,7 +59,7 @@ export function HomePage() {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="pannelWraper">
           {fourPannelData.map((item, index) => (
-            <div className={`pannel${index + 1}`}>
+            <div key={index} className={`pannel${index + 1}`}>
               <div className="title">
                 <p className="title_text">{item.title}</p>
                 <button className="addBtn" onClick={() => {}}>
