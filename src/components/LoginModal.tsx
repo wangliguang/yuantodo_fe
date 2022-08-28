@@ -15,46 +15,43 @@ export function LoginModal() {
       setIsShowLoginModal(true)
     }
 
+   
+  }
+
+  async function onFinish (data = { mobile: '', password: ''}) {
     try {
-      login('13121529304', 'wangliguang')
+      const result = await login(data.mobile, data.password)  
     } catch (error) {
-      debugger
+      
     }
+    
+    
   }
 
   function renderForm() {
-    const onFinish = (values: any) => {
-      console.log('Success:', values)
-    }
-
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo)
-    }
-
     return (
       <Form
         labelWrap={true}
         labelAlign={'right'}
         initialValues={{remember: true}}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
           labelAlign={'right'}
           className="formItem"
           label="手机号"
-          name="手机号"
+          name="mobile"
           rules={[{required: true, message: '请按照正确格式输入您的手机号！', pattern: /^1[3|4|5|7|8][0-9]\d{8}$/}]}
         >
-          <Input />
+          <Input autoComplete='username'/>
         </Form.Item>
 
         <Form.Item
           labelAlign={'right'}
           className="formItem"
           label="密码"
-          name="密码"
+          name="password"
           rules={[
             {
               required: true,
@@ -63,7 +60,7 @@ export function LoginModal() {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password autoComplete="current-password" />
         </Form.Item>
 
         <Form.Item style={{ marginBottom: '0px'}}>
