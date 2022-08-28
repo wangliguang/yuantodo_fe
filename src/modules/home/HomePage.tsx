@@ -1,9 +1,7 @@
 import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
 import {useEffect, useState} from 'react'
-import {login} from '../../network'
-import Cookies from 'js-cookie'
-import { Modal } from 'antd'
+import { LoginModal } from '../../components/LoginModal'
 
 type Todo = {
   id: number
@@ -23,22 +21,7 @@ export function HomePage() {
 
   useEffect(() => {
 
-    loginLogic()
-
   }, [])
-
-  function loginLogic() {
-
-    if (!Cookies.get('token===')) {
-      setIsShowLoginModal(true) 
-    }
-
-    try {
-      login('13121529304', 'wangliguang')
-    } catch (error) {
-      debugger
-    }
-  }
 
   function onDragEnd({source, destination}: DropResult) {
     console.log('onDragEnd', source, destination)
@@ -61,23 +44,6 @@ export function HomePage() {
       <div style={{marginTop: '10px', display: 'flex', flex: 1, height: '30px', backgroundColor: 'blue'}}>
         {content}
       </div>
-    )
-  }
-
-  function renderLoginModal() {
-    return (
-      <Modal
-        title="Modal 100px width"
-        centered
-        visible={isShowLoginModal}
-        onOk={() => setIsShowLoginModal(false)}
-        onCancel={() => setIsShowLoginModal(false)}
-        width={200}
-      >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
-      </Modal>
     )
   }
 
@@ -119,7 +85,7 @@ export function HomePage() {
     <div className="main">
       <TodoHeader />
       {renderPannel()}
-      {/* {renderLoginModal()} */}
+      <LoginModal/>
     </div>
   )
 }
