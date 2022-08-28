@@ -13,12 +13,14 @@
   "dependencies": {
     "antd": "^4.22.8",
     "axios": "^0.27.2",
+    "js-cookie": "^3.0.1",
     "react": "^16.8.5",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^16.8.5",
     "sass": "^1.52.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
     "@types/react": "^18.0.17",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dom": "^18.0.6",

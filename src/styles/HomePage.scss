@@ -10,9 +10,9 @@
 }
 
 .pannelWraper {
-  width: calc(100vw - 30px);
-  height: 90vh;
-  padding: 0px 15px;
+  width: 100vw;
+  height: 92vh;
+  padding: 0px 15px 10px 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -21,7 +21,7 @@
 .pannel {
   border-radius: 6px;
   overflow: hidden;
-  height: calc((90vh - 10px)/ 2);
+  height: calc((82vh - 10px)/ 2);
   width: calc((100vw - 30px - 10px)/2);
 }
 
