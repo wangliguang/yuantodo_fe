@@ -2,6 +2,7 @@ import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
 import {useEffect, useState} from 'react'
 import { LoginModal } from '../../components/LoginModal'
+import Cookies from 'js-cookie'
 
 type Todo = {
   id: number
@@ -20,8 +21,14 @@ export function HomePage() {
 
 
   useEffect(() => {
-
+    if (Cookies.get('token')) {
+      handleFetchTodyTodo()
+    }
   }, [])
+
+  function handleFetchTodyTodo() {
+    // 获取今天的todo
+  }
 
   function onDragEnd({source, destination}: DropResult) {
     console.log('onDragEnd', source, destination)
@@ -86,7 +93,7 @@ export function HomePage() {
     <div className="main">
       <TodoHeader />
       {renderPannel()}
-      <LoginModal/>
+      <LoginModal onSuccess={handleFetchTodyTodo}/>
     </div>
   )
 }

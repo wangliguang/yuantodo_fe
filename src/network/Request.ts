@@ -25,7 +25,7 @@ axios.interceptors.response.use(
     if (res.data.status !== 100) {
       return Promise.reject(res.data)
     }
-    return res.data;
+    return res.data.data;
   },
   err => {
     if (err && err.response) {

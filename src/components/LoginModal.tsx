@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import {useEffect, useState} from 'react'
 import {login} from '../network'
 
-export function LoginModal() {
+export function LoginModal({ onSuccess, }: { onSuccess: Function}) {
   const [isShowLoginModal, setIsShowLoginModal] = useState(false)
 
   useEffect(() => {
@@ -21,6 +21,8 @@ export function LoginModal() {
   async function onFinish (data = { mobile: '', password: ''}) {
     try {
       const result = await login(data.mobile, data.password)  
+      Cookies.set('token', result.token)
+      onSuccess(result)
     } catch (error) {
       
     }
