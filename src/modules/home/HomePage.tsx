@@ -57,7 +57,8 @@ export function HomePage() {
 
     return (
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="pannelWraper">
+      
+           <div className="pannelWraper">
           {fourPannelData.map((item, index) => (
             <div key={index} className={`pannel${index + 1}`}>
               <div className="title">

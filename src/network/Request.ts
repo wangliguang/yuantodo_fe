@@ -14,9 +14,7 @@ const request = (url: string, params: any, method: string) => {
     },
     err => {
       if (err && err.request) {
-        console.log('这里做请求错误处理')
       } else {
-        console.log('err=>链接服务器失败')
       }
       return Promise.reject()
     },
@@ -28,7 +26,6 @@ const request = (url: string, params: any, method: string) => {
     },
     err => {
       if (err && err.response) {
-        console.log('这里做响应错误处理')
       }
       return Promise.reject()
     },
