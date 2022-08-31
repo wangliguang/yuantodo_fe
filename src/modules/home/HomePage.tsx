@@ -48,7 +48,7 @@ export function HomePage() {
           {fourPannelData.map((item, index) => (
             <div key={index} className={`pannel${index + 1}`}>
               <div className="title">
-                <p className="title_text">{item.title}</p>
+                <span className="title_text">{item.title}</span>
                 <button className="addBtn" onClick={() => {}}>
                   +
                 </button>
