@@ -2,6 +2,13 @@
   margin-top: 10px;
   display: flex;
   flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   height: 30px;
-  background-color: blue;
+
+  input {
+    background: 'rgba(255,255,255,0)';
+    border: none;
+  }
 }

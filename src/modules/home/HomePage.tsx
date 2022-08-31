@@ -10,6 +10,12 @@ const TODOLIST_test1 = [
   {id: 2, content: '额想你'},
 ]
 
+const TODOLIST_test2 = [
+  {id: 3, content: '我想你'},
+  {id: 4, content: '俺想你'},
+  {id: 5, content: '额想你'},
+]
+
 export function HomePage() {
   useEffect(() => {}, [])
 
@@ -37,9 +43,9 @@ export function HomePage() {
   function renderPannel() {
     const fourPannelData = [
       {title: `重要紧急 10`, droppableId: 'imUr', dataArray: TODOLIST_test1},
-      {title: `重要不紧急 10`, droppableId: 'imNoUr', dataArray: TODOLIST_test1},
-      {title: `不重要紧急 10`, droppableId: 'noImUr', dataArray: TODOLIST_test1},
-      {title: `不重要不紧急 10`, droppableId: 'noImNoUr', dataArray: TODOLIST_test1},
+      {title: `重要不紧急 10`, droppableId: 'imNoUr', dataArray: TODOLIST_test2},
+      {title: `不重要紧急 10`, droppableId: 'noImUr', dataArray: []},
+      {title: `不重要不紧急 10`, droppableId: 'noImNoUr', dataArray: []},
     ]
 
     return (
