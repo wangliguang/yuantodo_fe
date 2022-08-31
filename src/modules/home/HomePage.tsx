@@ -2,11 +2,7 @@ import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
 import {useEffect} from 'react'
 import {LoginModal} from '../../components/LoginModal'
-
-type Todo = {
-  id: number
-  content: string
-}
+import {ITodo, TodoCell} from '../../components/TodoCell'
 
 const TODOLIST_test1 = [
   {id: 0, content: '我想你'},
@@ -26,24 +22,16 @@ export function HomePage() {
     console.log('onDragEnd', source, destination)
   }
 
-  function renderDragable(dataArray: Array<Todo>) {
+  function renderDragable(dataArray: Array<ITodo>) {
     return dataArray.map((todo, index) => (
       <Draggable draggableId={`${todo.id}`} key={`${todo.id}`} index={index}>
         {(provided: DraggableProvided) => (
           <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-            {renderCell(todo.content)}
+            <TodoCell todo={todo} />
           </div>
         )}
       </Draggable>
     ))
-  }
-
-  function renderCell(content: string) {
-    return (
-      <div style={{marginTop: '10px', display: 'flex', flex: 1, height: '30px', backgroundColor: 'blue'}}>
-        {content}
-      </div>
-    )
   }
 
   function renderPannel() {
