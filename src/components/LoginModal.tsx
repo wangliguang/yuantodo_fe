@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import {useEffect, useState} from 'react'
 import {login} from '../network'
 
-export function LoginModal({ onSuccess, }: { onSuccess: Function}) {
+export function LoginModal({onSuccess}: {onSuccess: Function}) {
   const [isShowLoginModal, setIsShowLoginModal] = useState(false)
 
   useEffect(() => {
@@ -14,20 +14,14 @@ export function LoginModal({ onSuccess, }: { onSuccess: Function}) {
     if (!Cookies.get('token')) {
       setIsShowLoginModal(true)
     }
-
-   
   }
 
-  async function onFinish (data = { mobile: '', password: ''}) {
+  async function onFinish(data = {mobile: '', password: ''}) {
     try {
-      const result = await login(data.mobile, data.password)  
+      const result = await login(data.mobile, data.password)
       Cookies.set('token', result.token)
       onSuccess(result)
-    } catch (error) {
-      
-    }
-    
-    
+    } catch (error) {}
   }
 
   function renderForm() {
@@ -46,7 +40,7 @@ export function LoginModal({ onSuccess, }: { onSuccess: Function}) {
           name="mobile"
           rules={[{required: true, message: '请按照正确格式输入您的手机号！', pattern: /^1[3|4|5|7|8][0-9]\d{8}$/}]}
         >
-          <Input autoComplete='username'/>
+          <Input autoComplete="username" />
         </Form.Item>
 
         <Form.Item
@@ -65,8 +59,8 @@ export function LoginModal({ onSuccess, }: { onSuccess: Function}) {
           <Input.Password autoComplete="current-password" />
         </Form.Item>
 
-        <Form.Item style={{ marginBottom: '0px'}}>
-          <Button className='submit' type="primary" htmlType="submit">
+        <Form.Item style={{marginBottom: '0px'}}>
+          <Button className="submit" type="primary" htmlType="submit">
             提交
           </Button>
         </Form.Item>
@@ -83,7 +77,6 @@ export function LoginModal({ onSuccess, }: { onSuccess: Function}) {
       onCancel={() => setIsShowLoginModal(false)}
       width={400}
       footer={null}
-      
     >
       {renderForm()}
     </Modal>
