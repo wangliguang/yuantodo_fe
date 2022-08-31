@@ -8,11 +8,13 @@ export function LoginModal({onSuccess}: {onSuccess: Function}) {
 
   useEffect(() => {
     loginLogic()
-  })
+  }, [])
 
   function loginLogic() {
     if (!Cookies.get('token')) {
       setIsShowLoginModal(true)
+    } else {
+      onSuccess()
     }
   }
 
@@ -20,6 +22,7 @@ export function LoginModal({onSuccess}: {onSuccess: Function}) {
     try {
       const result = await login(data.mobile, data.password)
       Cookies.set('token', result.token)
+      setIsShowLoginModal(false)
       onSuccess(result)
     } catch (error) {}
   }

@@ -1,8 +1,7 @@
 import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
-import {useEffect, useState} from 'react'
-import { LoginModal } from '../../components/LoginModal'
-import Cookies from 'js-cookie'
+import {useEffect} from 'react'
+import {LoginModal} from '../../components/LoginModal'
 
 type Todo = {
   id: number
@@ -16,18 +15,11 @@ const TODOLIST_test1 = [
 ]
 
 export function HomePage() {
-
-  const [ isShowLoginModal, setIsShowLoginModal] = useState(false)
-
-
-  useEffect(() => {
-    if (Cookies.get('token')) {
-      handleFetchTodyTodo()
-    }
-  }, [])
+  useEffect(() => {}, [])
 
   function handleFetchTodyTodo() {
     // 获取今天的todo
+    console.log('XXXXXX')
   }
 
   function onDragEnd({source, destination}: DropResult) {
@@ -64,8 +56,7 @@ export function HomePage() {
 
     return (
       <DragDropContext onDragEnd={onDragEnd}>
-      
-           <div className="pannelWraper">
+        <div className="pannelWraper">
           {fourPannelData.map((item, index) => (
             <div key={index} className={`pannel${index + 1}`}>
               <div className="title">
@@ -93,7 +84,7 @@ export function HomePage() {
     <div className="main">
       <TodoHeader />
       {renderPannel()}
-      <LoginModal onSuccess={handleFetchTodyTodo}/>
+      <LoginModal onSuccess={handleFetchTodyTodo} />
     </div>
   )
 }
