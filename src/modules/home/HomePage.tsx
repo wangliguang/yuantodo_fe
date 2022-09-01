@@ -3,6 +3,7 @@ import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} fr
 import {useEffect} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
+import {fetchTodyTodo} from '../../network'
 
 const TODOLIST_test1 = [
   {id: 0, content: '我想你'},
@@ -21,6 +22,7 @@ export function HomePage() {
 
   function handleFetchTodyTodo() {
     // 获取今天的todo
+    fetchTodyTodo('2022-01-23', '2022-08-20')
   }
 
   function onDragEnd({source, destination}: DropResult) {
