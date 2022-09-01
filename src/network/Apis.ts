@@ -5,5 +5,5 @@ export const login = (mobile: string, password: string) => {
 }
 
 export const fetchTodyTodo = (beginDate: string, endDate: string) => {
-  return post('/todo/queryAll', {beginDate, endDate})
+  return post('/todo/queryAll', {beginDate, endDate}) as any
 }

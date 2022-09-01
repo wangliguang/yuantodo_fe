@@ -1,28 +1,32 @@
 import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
 import {fetchTodyTodo} from '../../network'
 
-const TODOLIST_test1 = [
-  {id: 0, content: '我想你'},
-  {id: 1, content: '俺想你'},
-  {id: 2, content: '额想你'},
-]
-
-const TODOLIST_test2 = [
-  {id: 3, content: '我想你'},
-  {id: 4, content: '俺想你'},
-  {id: 5, content: '额想你'},
-]
+enum TodoType {
+  imUr = 'imUr',
+  imNoUr = 'imNoUr',
+  noImUr = 'noImUr',
+  noImNoUr = 'noImNoUr',
+}
 
 export function HomePage() {
+  const [imUrList, setImUrList] = useState<Array<ITodo>>([])
+  const [imNoUrList, setImNoUrList] = useState<Array<ITodo>>([])
+  const [noImUrList, setnoImUrList] = useState<Array<ITodo>>([])
+  const [noImNoUrList, setNoImNoUrList] = useState<Array<ITodo>>([])
+
   useEffect(() => {}, [])
 
-  function handleFetchTodyTodo() {
+  async function handleFetchTodyTodo() {
     // 获取今天的todo
-    fetchTodyTodo('2022-01-23', '2022-08-20')
+    const data = await fetchTodyTodo('2022-01-23', '2022-08-20')
+    setImUrList(data.imUr)
+    setImNoUrList(data.imNoUr)
+    setnoImUrList(data.noImUr)
+    setNoImNoUrList(data.noImNoUrList)
   }
 
   function onDragEnd({source, destination}: DropResult) {
@@ -30,8 +34,8 @@ export function HomePage() {
   }
 
   function renderDragable(dataArray: Array<ITodo>) {
-    return dataArray.map((todo, index) => (
-      <Draggable draggableId={`${todo.id}`} key={`${todo.id}`} index={index}>
+    return (dataArray ?? []).map((todo, index) => (
+      <Draggable draggableId={`${todo.tId}`} key={`${todo.tId}`} index={index}>
         {(provided: DraggableProvided) => (
           <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
             <TodoCell todo={todo} />
@@ -43,10 +47,10 @@ export function HomePage() {
 
   function renderPannel() {
     const fourPannelData = [
-      {title: `重要紧急 10`, droppableId: 'imUr', dataArray: TODOLIST_test1},
-      {title: `重要不紧急 10`, droppableId: 'imNoUr', dataArray: TODOLIST_test2},
-      {title: `不重要紧急 10`, droppableId: 'noImUr', dataArray: []},
-      {title: `不重要不紧急 10`, droppableId: 'noImNoUr', dataArray: []},
+      {title: `重要紧急 10`, droppableId: TodoType.imUr, dataArray: imUrList},
+      {title: `重要不紧急 10`, droppableId: TodoType.imNoUr, dataArray: imNoUrList},
+      {title: `不重要紧急 10`, droppableId: TodoType.noImUr, dataArray: noImUrList},
+      {title: `不重要不紧急 10`, droppableId: TodoType.noImNoUr, dataArray: noImNoUrList},
     ]
 
     return (

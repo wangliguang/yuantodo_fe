@@ -4,8 +4,9 @@ import {useRef, useState} from 'react'
 import selectedIcon from '../assets/select.png'
 
 export type ITodo = {
-  id: number
+  tId: number
   content: string
+  type: string
 }
 
 type TodoCellProps = {
@@ -33,11 +34,11 @@ export function TodoCell({todo}: TodoCellProps) {
     ;[...document.getElementsByClassName('cell')].forEach(element => {
       element.classList.remove('selected')
     })
-    document.getElementById(`cell_${todo.id}`)?.classList.add('selected')
+    document.getElementById(`cell_${todo.tId}`)?.classList.add('selected')
   }
 
   return (
-    <div onClick={handleSelectedCell} onDoubleClick={handleEnterEditMode} id={`cell_${todo.id}`} className={`cell`}>
+    <div onClick={handleSelectedCell} onDoubleClick={handleEnterEditMode} id={`cell_${todo.tId}`} className={`cell`}>
       <Image preview={false} width={20} height={20} src={selectedIcon} />
       <Input
         style={{display: isEdit ? 'block' : 'none'}}
