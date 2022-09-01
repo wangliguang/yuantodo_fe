@@ -1,3 +1,4 @@
+import {message} from 'antd'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
 
@@ -10,6 +11,7 @@ const axios = Axios.create()
 axios.defaults.baseURL = baseUrl
 
 function handleError(data: any) {
+  message.error(data.message)
   // token问题
   if (data.status === 1002 || data.status === 1001) {
     Cookies.remove('token')
@@ -21,6 +23,7 @@ axios.interceptors.request.use(
   req => {
     req.headers = {
       'Content-Type': 'application/json',
+      authorization: Cookies.get('token') || '',
     }
     return req
   },
@@ -37,8 +40,6 @@ axios.interceptors.response.use(
     return res.data.data
   },
   err => {
-    debugger
-    console.debug('XXXXX', err)
     if (err && err.response) {
       return err.response.data
     }
