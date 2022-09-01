@@ -21,7 +21,6 @@ export function HomePage() {
 
   function handleFetchTodyTodo() {
     // 获取今天的todo
-    console.log('XXXXXX')
   }
 
   function onDragEnd({source, destination}: DropResult) {
