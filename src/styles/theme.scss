@@ -1,11 +1,13 @@
-$firstPannelBgColor: #fc4f4f;
-$firstPannelTitleBgColor: #89bdae;
+$firstPannelBgColor: rgb(255,228,222);
+$firstPannelTitleBgColor: rgb(248,121,110);
 
-$secondPannelBgColor: #fc4f4f;
-$secondPannelTitleBgColor: #89bdae;
+$secondPannelBgColor:rgb(220,239,255);
+$secondPannelTitleBgColor:rgb(62,179,221);
 
-$thirdPannelBgColor: #fc4f4f;
-$thirdPannelTitleBgColor: #89bdae;
+$thirdPannelBgColor: rgb(235,242,213);
+$thirdPannelTitleBgColor: rgb(141,197,80);
 
-$fourthPannelBgColor: #fc4f4f;
-$fourthPannelTitleBgColor: hsla(248, 94%, 25%, 0.887);
+$fourthPannelBgColor: rgb(236, 236, 236);
+$fourthPannelTitleBgColor: rgb(165, 165, 165);
+
+$cellSelectedColor: rgba(0,0,0, 0.1);

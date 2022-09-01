@@ -12,3 +12,7 @@
     border: none;
   }
 }
+
+.selected {
+  background-color: $cellSelectedColor;
+}

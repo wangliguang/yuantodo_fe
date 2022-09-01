@@ -38,8 +38,7 @@ export function TodoCell({todo}: TodoCellProps) {
     <div
       onClick={handleSelectedCell}
       onDoubleClick={handleEnterEditMode}
-      style={{backgroundColor: isSelected ? 'red' : 'rgba(255,255,255,0)'}}
-      className="cell"
+      className={`cell ${isSelected ? 'selected' : ''}`}
     >
       <Image preview={false} width={20} height={20} src={selectedIcon} />
       <Input
