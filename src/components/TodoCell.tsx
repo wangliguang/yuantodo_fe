@@ -14,12 +14,11 @@ type TodoCellProps = {
 
 export function TodoCell({todo}: TodoCellProps) {
   const [isEdit, setIsEdit] = useState(false)
-  const [isSelected, setIsSelected] = useState(false)
+
   const [value, setValue] = useState(todo.content)
   const inputRef = useRef<InputRef>(null)
 
   function handleEnterEditMode() {
-    setIsSelected(true)
     setIsEdit(true)
     setTimeout(() => {
       inputRef.current?.focus()
@@ -31,15 +30,14 @@ export function TodoCell({todo}: TodoCellProps) {
   }
 
   function handleSelectedCell() {
-    setIsSelected(!isSelected)
+    ;[...document.getElementsByClassName('cell')].forEach(element => {
+      element.classList.remove('selected')
+    })
+    document.getElementById(`cell_${todo.id}`)?.classList.add('selected')
   }
 
   return (
-    <div
-      onClick={handleSelectedCell}
-      onDoubleClick={handleEnterEditMode}
-      className={`cell ${isSelected ? 'selected' : ''}`}
-    >
+    <div onClick={handleSelectedCell} onDoubleClick={handleEnterEditMode} id={`cell_${todo.id}`} className={`cell`}>
       <Image preview={false} width={20} height={20} src={selectedIcon} />
       <Input
         style={{display: isEdit ? 'block' : 'none'}}
