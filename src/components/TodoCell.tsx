@@ -1,12 +1,16 @@
 import {Image, Input, InputRef} from 'antd'
-import {useRef, useState} from 'react'
+import _ from 'lodash'
+import {useCallback, useRef, useState} from 'react'
 
 import selectedIcon from '../assets/select.png'
+import {TodoType} from '../modules/home/HomePage'
+import {updateTodo} from '../network'
 
 export type ITodo = {
   tId: number
-  content: string
-  type: string
+  content?: string
+  type?: TodoType
+  done?: number
 }
 
 type TodoCellProps = {
@@ -30,6 +34,17 @@ export function TodoCell({todo}: TodoCellProps) {
     setValue(e.currentTarget?.value)
   }
 
+  const handleSubmitChangeContent = useCallback(
+    _.debounce(
+      () => {
+        setIsEdit(false)
+        updateTodo({tId: todo.tId, content: value})
+      },
+      500,
+      {leading: true, trailing: false},
+    ),
+    [value],
+  )
   function handleSelectedCell() {
     ;[...document.getElementsByClassName('cell')].forEach(element => {
       element.classList.remove('selected')
@@ -45,7 +60,8 @@ export function TodoCell({todo}: TodoCellProps) {
         value={value}
         onChange={handleInputChange}
         ref={inputRef}
-        onBlur={() => setIsEdit(false)}
+        onPressEnter={handleSubmitChangeContent}
+        onBlur={handleSubmitChangeContent}
       />
       <span
         style={{

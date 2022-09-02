@@ -5,7 +5,7 @@ import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
 import {fetchTodyTodo} from '../../network'
 
-enum TodoType {
+export enum TodoType {
   imUr = 'imUr',
   imNoUr = 'imNoUr',
   noImUr = 'noImUr',

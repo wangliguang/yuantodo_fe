@@ -1,3 +1,4 @@
+import {ITodo} from '../components/TodoCell'
 import {post} from './Request'
 
 export const login = (mobile: string, password: string) => {
@@ -6,4 +7,8 @@ export const login = (mobile: string, password: string) => {
 
 export const fetchTodyTodo = (beginDate: string, endDate: string) => {
   return post('/todo/queryAll', {beginDate, endDate}) as any
+}
+
+export const updateTodo = (todo: ITodo) => {
+  return post('/todo/update', todo) as any
 }
