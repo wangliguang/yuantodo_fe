@@ -1,6 +1,6 @@
 import {Image, Input, InputRef} from 'antd'
 import _ from 'lodash'
-import {useCallback, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 
 import selectedIcon from '../assets/select.png'
 import {TodoType} from '../modules/home/HomePage'
@@ -12,6 +12,7 @@ export type ITodo = {
   type?: TodoType
   done?: number
   sort?: number
+  createTime?: number
 }
 
 type TodoCellProps = {
@@ -23,6 +24,12 @@ export function TodoCell({todo}: TodoCellProps) {
 
   const [value, setValue] = useState(todo.content)
   const inputRef = useRef<InputRef>(null)
+
+  useEffect(() => {
+    if (new Date().getTime() - (todo.createTime ?? 0) < 200) {
+      handleEnterEditMode()
+    }
+  }, [])
 
   function handleEnterEditMode() {
     setIsEdit(true)
@@ -70,7 +77,7 @@ export function TodoCell({todo}: TodoCellProps) {
           paddingLeft: '10px',
         }}
       >
-        {value}
+        {_.isEmpty(value) ? '双击编辑信息' : value}
       </span>
     </div>
   )

@@ -61,6 +61,7 @@ export function HomePage() {
       type,
       tId: tId,
       sort: getSort(),
+      createTime: new Date().getTime(),
     }
     if (type === TodoType.imUr) {
       setImUrList([...imUrList, newTodo])
