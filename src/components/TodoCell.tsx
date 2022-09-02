@@ -7,10 +7,11 @@ import {TodoType} from '../modules/home/HomePage'
 import {updateTodo} from '../network'
 
 export type ITodo = {
-  tId: number
+  tId?: number
   content?: string
   type?: TodoType
   done?: number
+  sort?: number
 }
 
 type TodoCellProps = {

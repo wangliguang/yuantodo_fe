@@ -3,16 +3,15 @@ import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} fr
 import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
-import {fetchTodyTodo} from '../../network'
-import {IconMap} from 'antd/lib/result'
-import {PlusCircleFilled, PlusOutlined, PlusSquareFilled} from '@ant-design/icons'
-import {Button} from 'antd'
+import {createTodo, fetchTodyTodo} from '../../network'
+import {PlusSquareFilled} from '@ant-design/icons'
+import _ from 'lodash'
 
 export enum TodoType {
-  imUr = 'imUr',
-  imNoUr = 'imNoUr',
-  noImUr = 'noImUr',
-  noImNoUr = 'noImNoUr',
+  imUr = 'IM_UR',
+  imNoUr = 'IM_noUR',
+  noImUr = 'noIM_UR',
+  noImNoUr = 'noIM_noUR',
 }
 
 export function HomePage() {
@@ -25,11 +24,11 @@ export function HomePage() {
 
   async function handleFetchTodyTodo() {
     // 获取今天的todo
-    const data = await fetchTodyTodo('2022-01-23', '2022-08-20')
+    const data = await fetchTodyTodo('2022-01-23', '2022-12-20')
     setImUrList(data.imUr)
     setImNoUrList(data.imNoUr)
     setnoImUrList(data.noImUr)
-    setNoImNoUrList(data.noImNoUrList)
+    setNoImNoUrList(data.noImNoUr)
   }
 
   function onDragEnd({source, destination}: DropResult) {
@@ -48,12 +47,46 @@ export function HomePage() {
     ))
   }
 
+  function getSort() {
+    const todo = _.maxBy(
+      [...(imUrList || []), ...(imNoUrList || []), ...(noImUrList || []), ...(noImNoUrList || [])],
+      'tId',
+    )
+    return ((todo?.tId || 1) + 1) * 65535
+  }
+  async function handleCreateTodo(type: TodoType) {
+    const tId = await createTodo({type, content: '', sort: getSort()})
+    const newTodo = {
+      content: '',
+      type,
+      tId: tId,
+      sort: getSort(),
+    }
+    if (type === TodoType.imUr) {
+      setImUrList([...imUrList, newTodo])
+      return
+    }
+
+    if (type === TodoType.imNoUr) {
+      setImNoUrList([...imNoUrList, newTodo])
+      return
+    }
+    if (type === TodoType.noImUr) {
+      setnoImUrList([...noImUrList, newTodo])
+      return
+    }
+    if (type === TodoType.noImNoUr) {
+      setNoImNoUrList([...noImNoUrList, newTodo])
+      return
+    }
+  }
+
   function renderPannel() {
     const fourPannelData = [
-      {title: `重要紧急 ${(imUrList || []).length}`, droppableId: TodoType.imUr, dataArray: imUrList},
-      {title: `重要不紧急 ${(imNoUrList || []).length}`, droppableId: TodoType.imNoUr, dataArray: imNoUrList},
-      {title: `不重要紧急 ${(noImUrList || []).length}`, droppableId: TodoType.noImUr, dataArray: noImUrList},
-      {title: `不重要不紧急 ${(noImNoUrList || []).length}`, droppableId: TodoType.noImNoUr, dataArray: noImNoUrList},
+      {title: `重要紧急 ${(imUrList || []).length}`, type: TodoType.imUr, dataArray: imUrList},
+      {title: `重要不紧急 ${(imNoUrList || []).length}`, type: TodoType.imNoUr, dataArray: imNoUrList},
+      {title: `不重要紧急 ${(noImUrList || []).length}`, type: TodoType.noImUr, dataArray: noImUrList},
+      {title: `不重要不紧急 ${(noImNoUrList || []).length}`, type: TodoType.noImNoUr, dataArray: noImNoUrList},
     ]
 
     return (
@@ -63,9 +96,9 @@ export function HomePage() {
             <div key={index} className={`pannel${index + 1}`}>
               <div className="title">
                 <span className="title_text">{item.title}</span>
-                <PlusSquareFilled className="addBtn" />
+                <PlusSquareFilled className="addBtn" onClick={() => handleCreateTodo(item.type)} />
               </div>
-              <Droppable droppableId={item.droppableId}>
+              <Droppable droppableId={item.type}>
                 {provided => (
                   <div ref={provided.innerRef} className="pannel">
                     {renderDragable(item['dataArray'])}

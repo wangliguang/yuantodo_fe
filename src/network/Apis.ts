@@ -12,3 +12,7 @@ export const fetchTodyTodo = (beginDate: string, endDate: string) => {
 export const updateTodo = (todo: ITodo) => {
   return post('/todo/update', todo) as any
 }
+
+export const createTodo = (todo: ITodo) => {
+  return post('/todo/create', todo) as any
+}
