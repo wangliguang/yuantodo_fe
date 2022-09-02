@@ -1,8 +1,8 @@
-import {Image, Input, InputRef} from 'antd'
+import {BorderOutlined, CheckSquareFilled} from '@ant-design/icons'
+import {Input, InputRef} from 'antd'
 import _ from 'lodash'
 import {useCallback, useEffect, useRef, useState} from 'react'
 
-import selectedIcon from '../assets/select.png'
 import {TodoType} from '../modules/home/HomePage'
 import {updateTodo} from '../network'
 
@@ -21,6 +21,7 @@ type TodoCellProps = {
 
 export function TodoCell({todo}: TodoCellProps) {
   const [isEdit, setIsEdit] = useState(false)
+  const [isDone, setIsDone] = useState(todo.done || 0)
 
   const [value, setValue] = useState(todo.content)
   const inputRef = useRef<InputRef>(null)
@@ -44,9 +45,9 @@ export function TodoCell({todo}: TodoCellProps) {
 
   const handleSubmitChangeContent = useCallback(
     _.debounce(
-      () => {
+      async () => {
+        await updateTodo({tId: todo.tId, content: value})
         setIsEdit(false)
-        updateTodo({tId: todo.tId, content: value})
       },
       500,
       {leading: true, trailing: false},
@@ -60,9 +61,18 @@ export function TodoCell({todo}: TodoCellProps) {
     document.getElementById(`cell_${todo.tId}`)?.classList.add('selected')
   }
 
+  async function handleOnDone() {
+    await updateTodo({tId: todo.tId, done: Number(isDone === 0 ? 1 : 0)})
+    setIsDone(isDone === 0 ? 1 : 0)
+  }
+
   return (
     <div onClick={handleSelectedCell} onDoubleClick={handleEnterEditMode} id={`cell_${todo.tId}`} className={`cell`}>
-      <Image preview={false} width={20} height={20} src={selectedIcon} />
+      {isDone ? (
+        <CheckSquareFilled onClick={handleOnDone} className="check" />
+      ) : (
+        <BorderOutlined onClick={handleOnDone} className="noCheck" />
+      )}
       <Input
         style={{display: isEdit ? 'block' : 'none'}}
         value={value}
