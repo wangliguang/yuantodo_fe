@@ -47,10 +47,10 @@ export function HomePage() {
 
   function renderPannel() {
     const fourPannelData = [
-      {title: `重要紧急 10`, droppableId: TodoType.imUr, dataArray: imUrList},
-      {title: `重要不紧急 10`, droppableId: TodoType.imNoUr, dataArray: imNoUrList},
-      {title: `不重要紧急 10`, droppableId: TodoType.noImUr, dataArray: noImUrList},
-      {title: `不重要不紧急 10`, droppableId: TodoType.noImNoUr, dataArray: noImNoUrList},
+      {title: `重要紧急 ${(imUrList || []).length}`, droppableId: TodoType.imUr, dataArray: imUrList},
+      {title: `重要不紧急 ${(imNoUrList || []).length}`, droppableId: TodoType.imNoUr, dataArray: imNoUrList},
+      {title: `不重要紧急 ${(noImUrList || []).length}`, droppableId: TodoType.noImUr, dataArray: noImUrList},
+      {title: `不重要不紧急 ${(noImNoUrList || []).length}`, droppableId: TodoType.noImNoUr, dataArray: noImNoUrList},
     ]
 
     return (
