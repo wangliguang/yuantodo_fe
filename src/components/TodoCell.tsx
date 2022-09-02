@@ -73,6 +73,7 @@ export function TodoCell({todo}: TodoCellProps) {
       />
       <span
         style={{
+          color: _.isEmpty(value) ? '#BBB' : '#202020',
           display: isEdit ? 'none' : 'block',
           paddingLeft: '10px',
         }}
