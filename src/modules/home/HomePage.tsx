@@ -4,6 +4,9 @@ import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
 import {fetchTodyTodo} from '../../network'
+import {IconMap} from 'antd/lib/result'
+import {PlusCircleFilled, PlusOutlined, PlusSquareFilled} from '@ant-design/icons'
+import {Button} from 'antd'
 
 export enum TodoType {
   imUr = 'imUr',
@@ -60,9 +63,7 @@ export function HomePage() {
             <div key={index} className={`pannel${index + 1}`}>
               <div className="title">
                 <span className="title_text">{item.title}</span>
-                <button className="addBtn" onClick={() => {}}>
-                  +
-                </button>
+                <PlusSquareFilled className="addBtn" />
               </div>
               <Droppable droppableId={item.droppableId}>
                 {provided => (
