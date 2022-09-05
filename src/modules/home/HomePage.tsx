@@ -3,7 +3,7 @@ import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} fr
 import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
-import {createTodo, fetchTodyTodo} from '../../network'
+import {createTodo, fetchTodyTodo, updateTodo} from '../../network'
 import {PlusSquareFilled} from '@ant-design/icons'
 import _ from 'lodash'
 
@@ -17,7 +17,7 @@ export enum TodoType {
 export function HomePage() {
   const [imUrList, setImUrList] = useState<Array<ITodo>>([])
   const [imNoUrList, setImNoUrList] = useState<Array<ITodo>>([])
-  const [noImUrList, setnoImUrList] = useState<Array<ITodo>>([])
+  const [noImUrList, setNoImUrList] = useState<Array<ITodo>>([])
   const [noImNoUrList, setNoImNoUrList] = useState<Array<ITodo>>([])
 
   useEffect(() => {}, [])
@@ -27,12 +27,96 @@ export function HomePage() {
     const data = await fetchTodyTodo('2022-01-23', '2022-12-20')
     setImUrList(data.imUr)
     setImNoUrList(data.imNoUr)
-    setnoImUrList(data.noImUr)
+    setNoImUrList(data.noImUr)
     setNoImNoUrList(data.noImNoUr)
   }
 
-  function onDragEnd({source, destination}: DropResult) {
-    console.log('onDragEnd', source, destination)
+  function getDataListByType(type: string) {
+    if (type === TodoType.imUr) return imUrList
+    if (type === TodoType.imNoUr) return imNoUrList
+    if (type === TodoType.noImUr) return noImUrList
+    if (type === TodoType.noImNoUr) return noImNoUrList
+    return []
+  }
+
+  function updateDataListByType(type: string, list: Array<ITodo>) {
+    if (type === TodoType.imUr) return setImUrList([...list])
+    if (type === TodoType.imNoUr) return setImNoUrList([...list])
+    if (type === TodoType.noImUr) return setNoImUrList([...list])
+    if (type === TodoType.noImNoUr) return setNoImNoUrList([...list])
+    return []
+  }
+
+  async function onDragEnd(event: DropResult) {
+    const {source, destination} = event
+    if (source.droppableId === destination?.droppableId) {
+      await updateDBSort(event)
+      const dataArray = getDataListByType(source.droppableId)
+      const [removed] = dataArray.splice(source.index, 1)
+      dataArray.splice(destination.index, 0, removed)
+      updateDataListByType(source.droppableId, dataArray)
+    } else if (destination) {
+      await updateDBSort(event)
+      const sourceList = getDataListByType(source.droppableId)
+      const destList = getDataListByType(destination?.droppableId)
+      const [removed] = sourceList.splice(source.index, 1)
+      removed.type = destination?.droppableId as TodoType
+      destList.splice(destination?.index, 0, removed)
+      updateDataListByType(source.droppableId, sourceList)
+      updateDataListByType(destination.droppableId, destList)
+    }
+  }
+
+  async function updateDBSort({source, destination}: DropResult) {
+    console.log('拖拽结束', source, destination)
+    if (source.index === destination?.index && source.droppableId === destination.droppableId) {
+      return
+    }
+    if (source.droppableId === destination?.droppableId) {
+      const curList = getDataListByType(source.droppableId)
+      let sort = 0
+      if (destination.index === 0) {
+        sort = (curList[0].sort || 1) / 2
+      } else if (destination.index === curList.length - 1) {
+        sort = (curList[curList.length - 1].sort || 1) + 65535
+      } else if (source.index > destination.index) {
+        // 向上拖动
+        const destTodo = curList[destination.index]
+        const nextTodo = curList[destination.index - 1]
+        sort = ((destTodo.sort || 1) + (nextTodo.sort || 1)) / 2
+      } else if (source.index < destination.index) {
+        // 向下拖动
+        const destTodo = curList[destination.index]
+        const nextTodo = curList[destination.index + 1]
+        sort = ((destTodo.sort || 1) + (nextTodo.sort || 1)) / 2
+      }
+      const sourceUpdateData = {
+        tId: curList[source.index].tId,
+        sort: sort,
+      }
+      await updateTodo(sourceUpdateData)
+    } else if (destination) {
+      const destList = getDataListByType(destination.droppableId)
+      const curList = getDataListByType(source.droppableId)
+      let sort = 0
+      if (destination.index === 0) {
+        if (destination.index === 0) {
+          sort = (destList[0]?.sort || getSort()) / 2
+        }
+      } else if (destination.index === destList.length) {
+        sort = (destList[destList.length - 1].sort || 1) + 65535
+      } else {
+        const lastTodo = destList[destination.index]
+        const curTodo = destList[destination.index - 1]
+        sort = ((lastTodo.sort || 1) + (curTodo.sort || 1)) / 2
+      }
+      const sourceUpdateData = {
+        tId: curList[source.index].tId,
+        sort: sort,
+        type: destination.droppableId as TodoType,
+      }
+      await updateTodo(sourceUpdateData)
+    }
   }
 
   function renderDragable(dataArray: Array<ITodo>) {
@@ -73,7 +157,7 @@ export function HomePage() {
       return
     }
     if (type === TodoType.noImUr) {
-      setnoImUrList([...noImUrList, newTodo])
+      setNoImUrList([...noImUrList, newTodo])
       return
     }
     if (type === TodoType.noImNoUr) {
