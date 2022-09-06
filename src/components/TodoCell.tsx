@@ -67,7 +67,13 @@ export function TodoCell({todo}: TodoCellProps) {
   }
 
   return (
-    <div onClick={handleSelectedCell} onDoubleClick={handleEnterEditMode} id={`cell_${todo.tId}`} className={`cell`}>
+    <div
+      data-type={todo.type}
+      onClick={handleSelectedCell}
+      onDoubleClick={handleEnterEditMode}
+      id={`cell_${todo.tId}`}
+      className={`cell`}
+    >
       {isDone ? (
         <CheckSquareFilled onClick={handleOnDone} className="check" />
       ) : (

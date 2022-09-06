@@ -3,7 +3,7 @@ import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} fr
 import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
-import {createTodo, fetchTodyTodo, updateTodo} from '../../network'
+import {createTodo, deleteTodo, fetchTodyTodo, updateTodo} from '../../network'
 import {PlusSquareFilled} from '@ant-design/icons'
 import _ from 'lodash'
 
@@ -20,7 +20,27 @@ export function HomePage() {
   const [noImUrList, setNoImUrList] = useState<Array<ITodo>>([])
   const [noImNoUrList, setNoImNoUrList] = useState<Array<ITodo>>([])
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    document.addEventListener('keydown', handleOnKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleOnKeyDown)
+    }
+  }, [imUrList, imNoUrList, noImUrList, noImNoUrList])
+
+  const handleOnKeyDown = async (event: any) => {
+    if (event.keyCode === 8) {
+      // 删除键
+      const element = [...document.getElementsByClassName('selected')][0]
+      if (!element) return
+      const tId = Number(element.getAttribute('id')?.split('_')[1])
+      const type = element.getAttribute('data-type')
+      if (!type || !tId) return
+      await deleteTodo(tId)
+      let dataArray = getDataListByType(type)
+      dataArray = _.remove(dataArray, e => e.tId !== tId)
+      updateDataListByType(type, dataArray)
+    }
+  }
 
   async function handleFetchTodyTodo() {
     // 获取今天的todo
