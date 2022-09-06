@@ -1,4 +1,4 @@
-import {TodoHeader} from '../../components/TodoHeader/TodoHeader'
+import {DATE_FORMATE, TodoHeader} from '../../components/TodoHeader/TodoHeader'
 import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} from 'react-beautiful-dnd'
 import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
@@ -6,6 +6,7 @@ import {ITodo, TodoCell} from '../../components/TodoCell'
 import {createTodo, deleteTodo, fetchTodyTodo, updateTodo} from '../../network'
 import {PlusSquareFilled} from '@ant-design/icons'
 import _ from 'lodash'
+import moment from 'moment'
 
 export enum TodoType {
   imUr = 'IM_UR',
@@ -42,9 +43,8 @@ export function HomePage() {
     }
   }
 
-  async function handleFetchTodyTodo() {
-    // 获取今天的todo
-    const data = await fetchTodyTodo('2022-01-23', '2022-12-20')
+  async function handleFetchTodo(beginDate: string, endDate: string) {
+    const data = await fetchTodyTodo(beginDate, endDate)
     setImUrList(data.imUr)
     setImNoUrList(data.imNoUr)
     setNoImUrList(data.noImUr)
@@ -220,9 +220,16 @@ export function HomePage() {
 
   return (
     <div className="main">
-      <TodoHeader />
+      <TodoHeader onDateChange={handleFetchTodo} />
       {renderPannel()}
-      <LoginModal onSuccess={handleFetchTodyTodo} />
+      <LoginModal
+        onSuccess={() => {
+          let today = moment(new Date())
+          const beginDate = today.format(DATE_FORMATE)
+          const endDate = today.add(1, 'days').format(DATE_FORMATE)
+          handleFetchTodo(beginDate, endDate)
+        }}
+      />
     </div>
   )
 }
