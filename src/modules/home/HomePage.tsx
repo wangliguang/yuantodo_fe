@@ -3,7 +3,7 @@ import {DragDropContext, Draggable, DraggableProvided, Droppable, DropResult} fr
 import {useEffect, useState} from 'react'
 import {LoginModal} from '../../components/LoginModal'
 import {ITodo, TodoCell} from '../../components/TodoCell'
-import {createTodo, deleteTodo, fetchTodyTodo, updateTodo} from '../../network'
+import {createTodo, deleteTodo, fetchTodoListByDateZone, updateTodo} from '../../network'
 import {PlusSquareFilled} from '@ant-design/icons'
 import _ from 'lodash'
 import moment from 'moment'
@@ -44,7 +44,7 @@ export function HomePage() {
   }
 
   async function handleFetchTodo(beginDate: string, endDate: string) {
-    const data = await fetchTodyTodo(beginDate, endDate)
+    const data = await fetchTodoListByDateZone(beginDate, endDate)
     setImUrList(data.imUr)
     setImNoUrList(data.imNoUr)
     setNoImUrList(data.noImUr)

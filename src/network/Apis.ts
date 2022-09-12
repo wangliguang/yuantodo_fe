@@ -5,8 +5,8 @@ export const login = (mobile: string, password: string) => {
   return post('/user/login', {mobile, password}) as any
 }
 
-export const fetchTodyTodo = (beginDate: string, endDate: string) => {
-  return post('/todo/queryAll', {beginDate, endDate}) as any
+export const fetchTodoListByDateZone = (beginDate: string, endDate: string) => {
+  return post('/todo/queryTodoListByDateZone', {beginDate, endDate}) as any
 }
 
 export const updateTodo = (todo: ITodo) => {
